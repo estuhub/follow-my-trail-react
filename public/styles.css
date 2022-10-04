@@ -6,3 +6,7 @@ a > img {
   border-radius: 100%;
   width: 15px;
 }
+
+.wrap > img {
+  height: 200px;
+}
