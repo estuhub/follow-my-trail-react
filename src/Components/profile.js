@@ -1,8 +1,16 @@
 // import
 import React from "react";
+import axios from 'axios'
 
 // create classes
 class Profile extends React.Component {
+	getResults = async (e) => {
+		console.log('hi');
+		e.preventDefault()
+		let tester = await axios.get(process.env.REACT_APP_SERVER_URL)
+		let username = JSON.parse(tester.request.response)
+		console.log(username.name)
+	}
   render() {
     return (
       <>
@@ -49,8 +57,8 @@ class Profile extends React.Component {
                         class="form-control"
                       />
                     </div>
-                    <button class="btn btn-success">Save Changes</button>
                   </form>
+									                    <button class="btn btn-success" onClick={e => this.getResults(e)}>Save Changes</button>
                 </div>
               </div>
             </div>
