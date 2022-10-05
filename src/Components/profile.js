@@ -4,12 +4,25 @@ import axios from 'axios'
 
 // create classes
 class Profile extends React.Component {
-	getResults = async (e) => {
+	state = {
+		user: {}
+	}
+	changeInput = (val) => {
+		console.log(val)
+		this.setState ({
+			user: val
+		})
+	}
+	getResults = async () => {
 		console.log('hi');
-		e.preventDefault()
+		// e.preventDefault()
 		let tester = await axios.get(process.env.REACT_APP_SERVER_URL)
-		let username = JSON.parse(tester.request.response)
-		console.log(username.name)
+		let user = JSON.parse(tester.request.response)
+		// console.log(user.name)
+		this.changeInput(user)
+	}
+	componentWillMount() {
+		this.getResults()
 	}
   render() {
     return (
@@ -29,7 +42,7 @@ class Profile extends React.Component {
                         name="name"
                         type="text"
                         class="form-control"
-                        value="{{ user.name }}"
+                        value={ this.state.user.name }
                       />
                     </div>
                     <div class="mb-3">
@@ -38,27 +51,28 @@ class Profile extends React.Component {
                         name="email"
                         type="email"
                         class="form-control"
-                        value="{{ user.email }}"
+                        value={  this.state.user.email }
                       />
                     </div>
                     <div class="mb-3">
                       <label class="form-label">Profile Picture</label>
                       <div class="host">
                         <img
-                          src="{{ user.avatar }}"
+                          src={  this.state.user.avatar }
                           alt="profile"
                           class="mb-3"
                         />
                       </div>
                       <input
                         name="avatar"
-                        value="{{ user.avatar }}"
+                        value={  this.state.user.avatar }
                         type="url"
                         class="form-control"
                       />
                     </div>
+	                    <button class="btn btn-success">Save Changes</button>
                   </form>
-									                    <button class="btn btn-success" onClick={e => this.getResults(e)}>Save Changes</button>
+
                 </div>
               </div>
             </div>
