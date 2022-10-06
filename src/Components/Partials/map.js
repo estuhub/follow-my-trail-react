@@ -2,22 +2,9 @@
 import React from "react"
 // import axios from 'axios'
 import GoogleMap from "google-map-react"
-// import Marker from './marker.js'
+import Marker from './marker.js'
 
-const Marker = props => {
-  return (
-		<div className="SuperAwesomePin"
-		onClick={(e) => {	console.log(`marker coordinates`)
-			console.log('ah')}}
-		>
-			<img
-				src="https://th.bing.com/th/id/OIP.PswRYJEO6ptKds__PAoKXQAAAA?pid=ImgDet&w=300&h=275&rs=1"
-				alt=""
-				class="avatar-img"
-			/>
-	</div>
-	)
-}
+
 
 class Map extends React.Component {
   state = {
@@ -67,16 +54,12 @@ class Map extends React.Component {
 					<Marker
 					lat={9.730213}
 					lng={100.017587}
-					onClick={(e) => {this.markerOnClick(e)}}
-
 					/>
 				</GoogleMap>
       </div>
     )
   }
 }
-
-
 
 // export
 export default Map
