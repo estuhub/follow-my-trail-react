@@ -5,6 +5,7 @@ import Location from './Components/location'
 import Profile from './Components/profile'
 import Login from './Components/login'
 import Signup from './Components/signup'
+import Map from './Components/map'
 
 // create classes
 class App extends React.Component {
@@ -15,7 +16,9 @@ class App extends React.Component {
         <Route path='/signup' component={Signup} />
 				<Route path='/login' component={Login} />
 				<Route path='/profile' component={Profile} />
-				<Route path='/' component={Location} />        
+				<Route path='/map' component={Map} />
+				<Route path='/' component={Location} />
+
       </Switch>
     </BrowserRouter>
 		)
