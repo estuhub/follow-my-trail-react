@@ -5,7 +5,7 @@ import Location from './Components/location'
 import Profile from './Components/profile'
 import Login from './Components/login'
 import Signup from './Components/signup'
-import Map from './Components/map'
+import Map from './Components/Partials/map'
 
 // create classes
 class App extends React.Component {

@@ -1,5 +1,6 @@
 // import
 import React from "react";
+import Map from './Partials/map'
 
 // create classes
 class Location extends React.Component {
@@ -138,11 +139,7 @@ class Location extends React.Component {
             </div>
             <div class="col-6">
               {/* map */}
-              <img
-                src="https://phanganlandandhome.com/wp-content/uploads/2020/01/Koh-Phangan-Map.png"
-                class="img-fluid"
-                alt=""
-              />
+              <Map />
             </div>
           </div>
         </div>

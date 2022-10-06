@@ -12,7 +12,7 @@ class Login extends React.Component {
 						<div class="row">
 							<div class="col-12 text-center">
 								<div class="pt-5">
-									<a href="#"
+									<a href="/login"
 										><img
 											class="logo"
 											src="./logo512.png"
@@ -36,7 +36,7 @@ class Login extends React.Component {
 										</div>
 										<div>
 											<p>
-												New to FM? <a href="#" class="text-success">Signup</a>
+												New to FM? <a href="/login" class="text-success">Signup</a>
 											</p>
 										</div>
 									</form>
