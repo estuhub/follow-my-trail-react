@@ -15,15 +15,16 @@ class Map extends React.Component {
       },
       zoom: 5
     },
-		place: {
-			coordinates: {
-				lat: 0,
-				lng: 0,
-			},
-			zoom: 0
-			}
+		places: []
+		// ,
+		// place: {
+		// 	coordinates: {
+		// 		lat: 0,
+		// 		lng: 0,
+		// 	},
+		// 	zoom: 0
+		// 	}
 	}
-
 
 	setMap = async () => {
 		let mapGeometry = await axios.get(`${process.env.REACT_APP_SERVER_URL}/map/koh-phangan`)
@@ -40,18 +41,20 @@ class Map extends React.Component {
 	}
 
 	setPlace = async () => {
-		let place = await axios.get(`${process.env.REACT_APP_SERVER_URL}/map/koh-phangan/places`)
-		place = JSON.parse(place.request.response)
-		// console.log(place.geometry);
+		let places = await axios.get(`${process.env.REACT_APP_SERVER_URL}/map/koh-phangan/places`)
+		places = JSON.parse(places.request.response)
+		console.log(places.geometry)
 		this.setState ({
-			place: {
-				coordinates: {
-					lat: place.geometry.lat,
-					lng: place.geometry.lng,
-				},
-				zoom: place.geometry.zoom
-				}
+			places
 		})
+		// 	{
+		// 		coordinates: {
+		// 			lat: place.geometry.lat,
+		// 			lng: place.geometry.lng,
+		// 		},
+		// 		zoom: place.geometry.zoom
+		// 		}
+		// })
 	}
 
 	componentWillMount() {
@@ -95,10 +98,13 @@ class Map extends React.Component {
           zoom={this.state.map.zoom}
 					onClick={(e) => {this.mapOnClick(e)}}
         >
-					<Marker
-					lat={this.state.place.coordinates.lat}
-					lng={this.state.place.coordinates.lng}
-					/>
+
+					{this.state.places.map((place) => (
+						<Marker
+							lat={place.geometry.lat}
+							lng={place.geometry.lng}
+						/>
+					))}
 				</GoogleMap>
       </div>
     )
