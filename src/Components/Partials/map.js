@@ -7,11 +7,11 @@ class Map extends React.Component {
   state = {
     map: {
       key: {
-        key: "AIzaSyBA6mFqPpHyp657OgfA-dQio8hVTGVgOUk"
+        key: process.env.REACT_APP_GOOGLE_API_KEY
       },
       center: {
-        lat: 9.730213,
-        lng: 100.017587
+        lat: 9.747570600000001,
+        lng: 100.0250831
       },
       zoom: 12
     }
