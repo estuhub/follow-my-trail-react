@@ -1,8 +1,8 @@
 // import
 import React from "react"
-import axios from 'axios'
 import GoogleMap from "google-map-react"
 import Marker from './marker.js'
+import axios from 'axios'
 
 // bug: sometimes map loads before state has changed - need it to be responsive to state changing
 
@@ -25,7 +25,6 @@ class Map extends React.Component {
 		// 	zoom: 0
 		// 	}
 	}
-
 	setMap = async () => {
 		let mapGeometry = await axios.get(`${process.env.REACT_APP_SERVER_URL}/map/koh-phangan`)
 		mapGeometry = JSON.parse(mapGeometry.request.response)
@@ -39,22 +38,13 @@ class Map extends React.Component {
 				}
 		})
 	}
-
 	setPlace = async () => {
 		let places = await axios.get(`${process.env.REACT_APP_SERVER_URL}/map/koh-phangan/places`)
 		places = JSON.parse(places.request.response)
-		console.log(places.geometry)
+		// console.log(places.geometry)
 		this.setState ({
 			places
 		})
-		// 	{
-		// 		coordinates: {
-		// 			lat: place.geometry.lat,
-		// 			lng: place.geometry.lng,
-		// 		},
-		// 		zoom: place.geometry.zoom
-		// 		}
-		// })
 	}
 
 	componentWillMount() {
@@ -98,7 +88,6 @@ class Map extends React.Component {
           zoom={this.state.map.zoom}
 					onClick={(e) => {this.mapOnClick(e)}}
         >
-
 					{this.state.places.map((place) => (
 						<Marker
 							lat={place.geometry.lat}
