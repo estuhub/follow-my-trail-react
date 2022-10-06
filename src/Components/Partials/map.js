@@ -4,7 +4,7 @@ import axios from 'axios'
 import GoogleMap from "google-map-react"
 import Marker from './marker.js'
 
-
+// bug: sometimes map loads before state has changed - need it to be responsive to state changing
 
 class Map extends React.Component {
   state = {
@@ -14,10 +14,19 @@ class Map extends React.Component {
         lng: 0
       },
       zoom: 5
-    }
-  }
+    },
+		place: {
+			coordinates: {
+				lat: 0,
+				lng: 0,
+			},
+			zoom: 0
+			}
+	}
+
+
 	setMap = async () => {
-		let mapGeometry = await axios.get(`${process.env.REACT_APP_SERVER_URL}/map`)
+		let mapGeometry = await axios.get(`${process.env.REACT_APP_SERVER_URL}/map/koh-phangan`)
 		mapGeometry = JSON.parse(mapGeometry.request.response)
 		this.setState ({
 			map: {
@@ -29,8 +38,28 @@ class Map extends React.Component {
 				}
 		})
 	}
+
+	setPlace = async () => {
+		let place = await axios.get(`${process.env.REACT_APP_SERVER_URL}/map/koh-phangan/places`)
+		place = JSON.parse(place.request.response)
+		// console.log(place.geometry);
+		this.setState ({
+			place: {
+				coordinates: {
+					lat: place.geometry.lat,
+					lng: place.geometry.lng,
+				},
+				zoom: place.geometry.zoom
+				}
+		})
+	}
+
 	componentWillMount() {
 		this.setMap()
+	}
+
+	componentDidMount() {
+		this.setPlace()
 	}
 
 	mapOnClick = (e) => {
@@ -67,8 +96,8 @@ class Map extends React.Component {
 					onClick={(e) => {this.mapOnClick(e)}}
         >
 					<Marker
-					lat={9.730213}
-					lng={100.017587}
+					lat={this.state.place.coordinates.lat}
+					lng={this.state.place.coordinates.lng}
 					/>
 				</GoogleMap>
       </div>
