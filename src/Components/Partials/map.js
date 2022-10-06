@@ -16,14 +16,6 @@ class Map extends React.Component {
       zoom: 5
     },
 		places: []
-		// ,
-		// place: {
-		// 	coordinates: {
-		// 		lat: 0,
-		// 		lng: 0,
-		// 	},
-		// 	zoom: 0
-		// 	}
 	}
 	setMap = async () => {
 		let mapGeometry = await axios.get(`${process.env.REACT_APP_SERVER_URL}/map/koh-phangan`)
@@ -35,7 +27,8 @@ class Map extends React.Component {
 					lng: mapGeometry.geometry.lng,
 				},
 				zoom: mapGeometry.geometry.zoom
-				}
+			},
+			theProp: []
 		})
 	}
 	setPlace = async () => {
@@ -49,11 +42,35 @@ class Map extends React.Component {
 
 	componentWillMount() {
 		this.setMap()
+		// this.props.test.map	? this.props.test.map.forEach(place => console.log(place)) :	null
 	}
 
 	componentDidMount() {
 		this.setPlace()
+		console.log(this.state.placess)
 	}
+
+	componentWillReceiveProps(props) {
+		console.log(props.test.center)
+		console.log(props.test.center.lat)
+		console.log(props.test.center.lng)
+		this.setState ({
+			map: {
+				center: {
+					lat: props.test.center.lat,
+					lng: props.test.center.lng
+				},
+				zoom: 15 // this changes zoom before any location is selected!!
+			}
+		})
+	}
+
+	// updateZoom = () => {
+	// 	console.log(this.props.test.map)
+	// 	this.setState ({
+	// 		theProp: this.props.test.map
+	// 	})
+	// }
 
 	mapOnClick = (e) => {
 		console.log('click coordinates')

@@ -6,21 +6,47 @@ import axios from 'axios'
 // create classes
 class Location extends React.Component {
 	state = {
-		places: []
+		places: [],
+		map: {
+      center: {
+        lat: 55,
+        lng: 0
+      },
+      zoom: 5
+    },
 	}
+
 	setPlace = async () => {
 		let places = await axios.get(`${process.env.REACT_APP_SERVER_URL}/map/koh-phangan/places`)
 		places = JSON.parse(places.request.response)
-		console.log(places)
+		// console.log(places)
 		this.setState ({
 			places
 		})
-		console.log(this.state.places[0].address)
+		// console.log(this.state.places[0].address)
 
 	}
 	componentDidMount() {
 		this.setPlace()
 	}
+
+	zoomMap = (name, geometry) => {
+		console.log(name)
+		// console.log(geometry)
+		this.setState ({
+			map: {
+				center: {
+					lat: geometry.lat,
+					lng: geometry.lng
+				},
+				zoom: geometry.zoom
+			}
+		})
+		console.log(this.state.map.center.lat)
+		console.log(this.state.map.center.lng)
+		console.log(this.state.map.zoom)
+	}
+
   render() {
     return (
 			<>
@@ -53,6 +79,7 @@ class Location extends React.Component {
 		                      data-bs-target="#collapseOne"
 		                      aria-expanded="true"
 		                      aria-controls="collapseOne"
+													onClick={ev => this.zoomMap(ev.target.innerHTML, place.geometry)}
 		                    >
 												{place.name}
 		                    </button>
@@ -87,7 +114,7 @@ class Location extends React.Component {
               {/* accordion end */}
             	<div class="col-6">
               	{/* map */}
-              <Map />
+              <Map test={this.state.map}/>
             </div>
           </div>
         </div>
