@@ -75,16 +75,13 @@ class Map extends React.Component {
 	mapOnClick = (e) => {
 		console.log('click coordinates')
 		this.logLatLong(e)
+		console.log(this.props);
 	}
 	logLatLong = (e) => {
 		console.log("latitude = ", e.lat)
 		console.log("longtitude = ", e.lng)
 	}
-	markerOnClick = (marker) => {
-		console.log(`marker coordinates`)
-		console.log(marker.geometry.location.lat)
-		console.log(marker.geometry.location.lng)
-	}
+
 
   render() {
 		const styles = {
@@ -109,6 +106,8 @@ class Map extends React.Component {
 						<Marker
 							lat={place.geometry.lat}
 							lng={place.geometry.lng}
+							name={place.name}
+							focus={this.props.updateFocus}
 						/>
 					))}
 				</GoogleMap>

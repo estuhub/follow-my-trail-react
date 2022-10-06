@@ -14,6 +14,7 @@ class Location extends React.Component {
       },
       zoom: 5
     },
+		focus: 'La Casa'
 	}
 
 	setPlace = async () => {
@@ -45,6 +46,15 @@ class Location extends React.Component {
 		console.log(this.state.map.center.lat)
 		console.log(this.state.map.center.lng)
 		console.log(this.state.map.zoom)
+	}
+
+	updateFocus = (param) => {
+		console.log('here')
+		// console.log(param)
+		this.setState ({
+			focus: param
+		})
+		console.log(this.state.focus)
 	}
 
   render() {
@@ -86,7 +96,7 @@ class Location extends React.Component {
 		                  </h2>
 		                  <div
 		                    id="collapseOne"
-		                    class="accordion-collapse collapse show"
+												className={place.name === this.state.focus ? "accordion-collapse collapse show" : "accordion-collapse collapse collapsed"}
 		                    aria-labelledby="headingOne"
 		                    data-bs-parent="#accordionExample"
 		                  >
@@ -114,7 +124,7 @@ class Location extends React.Component {
               {/* accordion end */}
             	<div class="col-6">
               	{/* map */}
-              <Map test={this.state.map}/>
+              <Map test={this.state.map} updateFocus={this.updateFocus}/>
             </div>
           </div>
         </div>

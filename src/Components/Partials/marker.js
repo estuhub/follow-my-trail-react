@@ -4,9 +4,6 @@ import React from "react"
 class Marker extends React.Component {
   state = {
     map: {
-      key: {
-        key: "AIzaSyBA6mFqPpHyp657OgfA-dQio8hVTGVgOUk"
-      },
       center: {
         lat: this.props.lat,
         lng: this.props.lng
@@ -20,8 +17,9 @@ class Marker extends React.Component {
 	}
 	markerOnClick = (marker) => {
 		console.log(`marker coordinates`)
-		console.log(marker.geometry.location.lat)
-		console.log(marker.geometry.location.lng)
+		console.log(marker)
+		// console.log(marker.geometry.location.lng)
+		this.props.focus(this.props.name)
 	}
   render() {
 		const styles = {
@@ -36,7 +34,7 @@ class Marker extends React.Component {
 	}
 	return (
 		<div className="SuperAwesomePin"
-		onClick={(e) => console.log(this.props.lng) }
+		onClick={(ev) => this.markerOnClick(ev)}
 		>
 			<img
 				src="https://th.bing.com/th/id/OIP.PswRYJEO6ptKds__PAoKXQAAAA?pid=ImgDet&w=300&h=275&rs=1"
