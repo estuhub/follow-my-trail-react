@@ -3,6 +3,13 @@ import React from "react";
 import Map from './Partials/map'
 import axios from 'axios'
 
+/*
+to do
+pull initial map state from location
+	set location name in page from it
+considering categories
+*/
+
 // create classes
 class Location extends React.Component {
 	state = {
@@ -14,9 +21,12 @@ class Location extends React.Component {
       },
       zoom: 5
     },
-		focus: 'La Casa'
+		focus: 'test'
 	}
 
+	// fetch all places from database
+	// not yet linked to selected/specific location
+	// rename to setPlaces
 	setPlace = async () => {
 		let places = await axios.get(`${process.env.REACT_APP_SERVER_URL}/map/koh-phangan/places`)
 		places = JSON.parse(places.request.response)
@@ -25,12 +35,14 @@ class Location extends React.Component {
 			places
 		})
 		// console.log(this.state.places[0].address)
-
 	}
 	componentDidMount() {
 		this.setPlace()
 	}
 
+	// updates state 'map' - also takes name
+	// zoom wants to be fed from data
+	// also need the collapsing to change map
 	zoomMap = (name, geometry) => {
 		console.log(name)
 		// console.log(geometry)
@@ -40,21 +52,21 @@ class Location extends React.Component {
 					lat: geometry.lat,
 					lng: geometry.lng
 				},
-				zoom: geometry.zoom
+				zoom: 15
 			}
 		})
-		console.log(this.state.map.center.lat)
-		console.log(this.state.map.center.lng)
-		console.log(this.state.map.zoom)
+		// console.log(this.state.map.center.lat)
+		// console.log(this.state.map.center.lng)
+		// console.log(this.state.map.zoom)
 	}
 
+	// updates state 'focus'
 	updateFocus = (param) => {
-		console.log('here')
 		// console.log(param)
 		this.setState ({
 			focus: param
 		})
-		console.log(this.state.focus)
+		// console.log(this.state.focus)
 	}
 
   render() {
@@ -124,7 +136,7 @@ class Location extends React.Component {
               {/* accordion end */}
             	<div class="col-6">
               	{/* map */}
-              <Map test={this.state.map} updateFocus={this.updateFocus}/>
+              <Map map={this.state.map} updateFocus={this.updateFocus}/>
             </div>
           </div>
         </div>

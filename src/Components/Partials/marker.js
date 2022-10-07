@@ -1,6 +1,9 @@
 // import
 import React from "react"
 
+//do I need the map state here?
+// tidy up a lot, actually. Pass down any funcs I need, remove dead ones.
+
 class Marker extends React.Component {
   state = {
     map: {
@@ -11,13 +14,10 @@ class Marker extends React.Component {
       zoom: 12
     }
   }
-	logLatLong = (e) => {
-		console.log("latitude = ", e.lat)
-		console.log("longtitude = ", e.lng)
-	}
+	// markerOnClick also wants to set map center/zoom to the position of that pin so that it centres
 	markerOnClick = (marker) => {
-		console.log(`marker coordinates`)
-		console.log(marker)
+		// console.log(`marker coordinates`)
+		// console.log(marker)
 		// console.log(marker.geometry.location.lng)
 		this.props.focus(this.props.name)
 	}
@@ -33,13 +33,13 @@ class Marker extends React.Component {
 		}
 	}
 	return (
-		<div className="SuperAwesomePin"
+		<div className="Pin"
 		onClick={(ev) => this.markerOnClick(ev)}
 		>
 			<img
 				src="https://th.bing.com/th/id/OIP.PswRYJEO6ptKds__PAoKXQAAAA?pid=ImgDet&w=300&h=275&rs=1"
 				alt=""
-				class="avatar-img"
+				className="avatar-img"
 				style={styles.pin}
 			/>
 	</div>
