@@ -14,7 +14,7 @@ class Profile extends React.Component {
 		})
 	}
 	getResults = async () => {
-		console.log('hi');
+		// console.log('hi');
 		// e.preventDefault()
 		let tester = await axios.get(process.env.REACT_APP_SERVER_URL)
 		let user = JSON.parse(tester.request.response)

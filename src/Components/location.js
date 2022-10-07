@@ -1,11 +1,13 @@
 // import
-import React from "react";
+import React from "react"
+import Nav from './Partials/nav'
 
 // create classes
 class Location extends React.Component {
   render() {
     return (
       <>
+				<Nav />
         <div class="container">
           {/* location */}
           <h2 class="pt-4">Koh Phangan</h2>
