@@ -74,7 +74,7 @@ class Location extends React.Component {
 			},
 			focus: name
 		})
-		if (name == this.state.focus) {
+		if (name === this.state.focus) {
 			this.setMap()
 
 		}
@@ -90,7 +90,7 @@ class Location extends React.Component {
 		this.setState ({
 			focus: param
 		})
-		let place = this.state.places.filter(place => place.name == param)[0]
+		let place = this.state.places.filter(place => place.name === param)[0]
 		console.log(place.geometry)
 	this.zoomMap(param, place.geometry)
 		// console.log(this.state.focus)
@@ -115,7 +115,7 @@ class Location extends React.Component {
 									<div class="accordion-item">
 										<h2 class="accordion-header" id={`heading${i}`}>
 											<button
-												class="accordion-button collapsed"
+												class={place.name === this.state.focus ? "accordion-button" : "accordion-button collapsed"}
 												type="button"
 												data-bs-toggle="collapse"
 												data-bs-target={`#collapse${i}`}
