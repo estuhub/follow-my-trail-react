@@ -91,25 +91,25 @@ class Location extends React.Component {
               <h6>Sunsets</h6>
 							{/* accordion start */}
 	              <div class="accordion accordion-flush" id="accordionExample">
-									{this.state.places.map((place) => (
+									{this.state.places.map((place, i) => (
 										<div class="accordion-item">
-		                  <h2 class="accordion-header" id="headingOne">
+		                  <h2 class="accordion-header" id={`heading${i}`}>
 		                    <button
-		                      class="accordion-button"
+		                      class="accordion-button collapsed"
 		                      type="button"
 		                      data-bs-toggle="collapse"
-		                      data-bs-target="#collapseOne"
-		                      aria-expanded="true"
-		                      aria-controls="collapseOne"
+		                      data-bs-target={`#collapse${i}`}
+		                      aria-expanded="false"
+		                      aria-controls={`collapse${i}`}
 													onClick={ev => this.zoomMap(ev.target.innerHTML, place.geometry)}
 		                    >
 												{place.name}
 		                    </button>
 		                  </h2>
 		                  <div
-		                    id="collapseOne"
+		                    id={`collapse${i}`}
 												className={place.name === this.state.focus ? "accordion-collapse collapse show" : "accordion-collapse collapse collapsed"}
-		                    aria-labelledby="headingOne"
+		                    aria-labelledby={`heading{i}`}
 		                    data-bs-parent="#accordionExample"
 		                  >
 		                    <div class="accordion-body">
