@@ -19,7 +19,7 @@ class Marker extends React.Component {
 		// console.log(`marker coordinates`)
 		// console.log(marker)
 		// console.log(marker.geometry.location.lng)
-		this.props.focus(this.props.name)
+		this.props.updateFocus(this.props.name)
 	}
   render() {
 		const styles = {

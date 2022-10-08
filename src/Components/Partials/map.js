@@ -105,7 +105,7 @@ class Map extends React.Component {
 							lat={place.geometry.lat}
 							lng={place.geometry.lng}
 							name={place.name}
-							focus={this.props.updateFocus}
+							updateFocus={this.props.updateFocus}
 						/>
 					))}
 				</GoogleMap>
