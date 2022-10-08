@@ -21,7 +21,7 @@ class Location extends React.Component {
       },
       zoom: 5
     },
-		focus: 'test'
+		focus: 'location'
 	}
 
 	// fetch all places from database
@@ -37,7 +37,24 @@ class Location extends React.Component {
 		// console.log(this.state.places[0].address)
 	}
 	componentDidMount() {
+		this.setMap()
 		this.setPlace()
+	}
+
+	// duplicated on map component
+	setMap = async () => {
+		let mapGeometry = await axios.get(`${process.env.REACT_APP_SERVER_URL}/map/koh-phangan`)
+		mapGeometry = JSON.parse(mapGeometry.request.response)
+		this.setState ({
+			map: {
+				center: {
+					lat: mapGeometry.geometry.lat,
+					lng: mapGeometry.geometry.lng,
+				},
+				zoom: mapGeometry.geometry.zoom
+			},
+			focus: 'location'
+		})
 	}
 
 	// updates state 'map' - also takes name
@@ -45,6 +62,7 @@ class Location extends React.Component {
 	// also need the collapsing to change map
 	zoomMap = (name, geometry) => {
 		console.log(name)
+		console.log(this.state.focus);
 		// console.log(geometry)
 		this.setState ({
 			map: {
@@ -53,8 +71,13 @@ class Location extends React.Component {
 					lng: geometry.lng
 				},
 				zoom: 15
-			}
+			},
+			focus: name
 		})
+		if (name == this.state.focus) {
+			this.setMap()
+
+		}
 		// console.log(this.state.map.center.lat)
 		// console.log(this.state.map.center.lng)
 		// console.log(this.state.map.zoom)
@@ -62,10 +85,14 @@ class Location extends React.Component {
 
 	// updates state 'focus'
 	updateFocus = (param) => {
-		// console.log(param)
+		console.log(param)
+		// console.log(this.state.places)
 		this.setState ({
 			focus: param
 		})
+		let place = this.state.places.filter(place => place.name == param)[0]
+		console.log(place.geometry)
+	this.zoomMap(param, place.geometry)
 		// console.log(this.state.focus)
 	}
 
