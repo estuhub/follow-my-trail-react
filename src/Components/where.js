@@ -3,9 +3,19 @@ import React from 'react'
 
 // create classes
 class Where extends React.Component {
-
-	
-
+	state = {
+		location: 'Koh Phangan'
+	}
+	setLocation = (form) => {
+		form.preventDefault()
+		// redirect to location page
+		// pass the location value as a prop
+	}
+	handleChange = (event) => {
+		this.setState({
+			location: event.target.value
+		})
+	}
   render() {
     return (
 			<>
@@ -23,19 +33,21 @@ class Where extends React.Component {
 									/></a>
 								</div>
 							</div>
-							<div class="col-12">
-								<div class="card-body">
-									<form action="/auth/login" method="POST">
-										<div class="mb-3">
-											<label class="form-label mb-0">Where To</label>
+							<div className="col-12">
+								<div className="card-body">
+									<form onSubmit={ev => this.setLocation(ev)}>
+										<div className="mb-3">
+											<label className="form-label mb-0">Where To</label>
 											<select
-												class="form-select"
+												className="form-select"
 												name="location"
+												value={this.location}
+												onChange={this.handleChange}
 											>
-												<option disabled value="1">Any Location</option>
-												<option disabled>Koh Samui</option>
-												<option selected>Koh Phangan</option>
-												<option disabled>Koh Tao</option>
+												<option value="Any Location">Any Location</option>
+												<option disabled value="Koh Samui">Koh Samui</option>
+												<option selected value="Koh Phangan">Koh Phangan</option>
+												<option disabled value="Koh Tao">Koh Tao</option>
 											</select>
 										</div>
 										<button class="btn btn-primary">Search</button>
