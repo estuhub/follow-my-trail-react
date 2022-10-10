@@ -74,6 +74,7 @@ class Create extends React.Component {
 	                  City
 	                </label>
 	                <input type="text" className="form-control" name="city" required />
+									<AutoComplete />
 	              </div>
 	              {/* address */}
 	              <div className="mb-3">
