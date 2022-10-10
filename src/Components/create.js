@@ -1,27 +1,35 @@
 // import
 import React from "react";
-import AutoComplete from "./Partials/autocomplete";
+import GooglePlacesAutocomplete from 'react-google-places-autocomplete'
+import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 import axios from "axios";
 import { Redirect } from 'react-router-dom'
 
 // create classes
 class Create extends React.Component {
 	state = {
-		activityCreated: false
+		activityCreated: false,
+		geometry: {
+			lat: 0,
+			lng: 0,
+			zoom: 15
+		}
 	}
+
   createActivity = async form => {
     form.preventDefault()
-    // await axios.post(
-    //   process.env.REACT_APP_SERVER_URL + "/activities", {
-		// 		title: form.target.title.value,
-		// 		category: form.target.category.value,
-		// 		description: form.target.description.value,
-		// 		image: form.target.image.value
-		// 	}
-    // )
-    // this.setState({
-    //   activityCreated: true //login.data
-    // })
+    await axios.post(
+      process.env.REACT_APP_SERVER_URL + "/activities", {
+				title: form.target.title.value,
+				category: form.target.category.value,
+				description: form.target.description.value,
+				image: form.target.image.value,
+				geometry: this.state.geometry
+			}
+    )
+    this.setState({
+      activityCreated: true //login.data
+    })
   }
   render() {
     return (
@@ -74,7 +82,14 @@ class Create extends React.Component {
 	                  City
 	                </label>
 	                <input type="text" className="form-control" name="city" required />
-									<AutoComplete />
+									<GooglePlacesAutocomplete
+										apiKey={"AIzaSyCCYmCvCdLQ3_-UZtmNHRElj_FWYX8778M"}
+										selectProps={{
+										    onChange: e => geocodeByAddress(e.label)
+												  .then(results => getLatLng(results[0]))
+												  .then(({ lat, lng }) => this.setState({geometry: {lat, lng, zoom:15}}))
+										}}
+									/>
 	              </div>
 	              {/* address */}
 	              <div className="mb-3">
