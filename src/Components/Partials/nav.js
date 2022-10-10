@@ -1,8 +1,24 @@
-// import
 import React from 'react'
+import axios from 'axios'
+import { Redirect } from "react-router-dom"
 
-// create classes
 class Nav extends React.Component {
+	state = {
+		loggedIn: true
+	}
+	logout = async () => {
+		console.log(this.state.loggedIn)
+		let logout = await axios.get(process.env.REACT_APP_SERVER_URL + '/auth/logout')
+		console.log()
+		this.setState({
+			loggedIn: logout.data
+		})
+		console.log(this.state.loggedIn)
+		// change loggedIn state
+		// should I redirect here?
+		// change the component to be just 'auth' as well orr?
+		// do I want the loggedIn state on the App, then props/method to other components?
+	}
   render() {
     return (
 			<>
@@ -21,7 +37,7 @@ class Nav extends React.Component {
 								alt="profile"
 							/>Name
 						</a>
-						<a href="/auth/logout" class="btn btn-outline-secondary">Logout</a>
+						<button class="btn btn-outline-secondary" onClick={e => this.logout()}>Logout</button>
 					</div>
 				</div>
 			</nav>
