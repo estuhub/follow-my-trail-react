@@ -13,7 +13,7 @@ considering categories
 // create classes
 class Location extends React.Component {
 	state = {
-		places: [],
+		activities: [],
 		map: {
       center: {
         lat: 55,
@@ -24,21 +24,20 @@ class Location extends React.Component {
 		focus: 'location'
 	}
 
-	// fetch all places from database
+	// fetch all activities from database
 	// not yet linked to selected/specific location
-	// rename to setPlaces
-	setPlace = async () => {
-		let places = await axios.get(`${process.env.REACT_APP_SERVER_URL}/map/koh-phangan/activities`)
-		places = JSON.parse(places.request.response)
-		// console.log(places)
+	setActivities = async () => {
+		let activities = await axios.get(`${process.env.REACT_APP_SERVER_URL}/map/koh-phangan/activities`)
+		activities = JSON.parse(activities.request.response)
+		// console.log(activitys)
 		this.setState ({
-			places
+			activities
 		})
-		// console.log(this.state.places[0].address)
+		// console.log(this.state.activitys[0].address)
 	}
 	componentDidMount() {
 		this.setMap()
-		this.setPlace()
+		this.setActivities()
 	}
 
 	// duplicated on map component
@@ -86,13 +85,11 @@ class Location extends React.Component {
 	// updates state 'focus'
 	updateFocus = (param) => {
 		console.log(param)
-		// console.log(this.state.places)
 		this.setState ({
 			focus: param
 		})
-		let place = this.state.places.filter(place => place.name === param)[0]
-		console.log(place.geometry)
-	this.zoomMap(param, place.geometry)
+		let activity = this.state.activities.filter(activity => activity.name === param)[0]
+	this.zoomMap(param, activity.geometry)
 		// console.log(this.state.focus)
 	}
 
@@ -102,7 +99,7 @@ class Location extends React.Component {
 			  <div class="container">
 					{/* location */}
 					<h2 class="pt-4">Koh Phangan</h2>
-					<small class="card-text">120 places</small>
+					<small class="card-text">120 activities</small>
 					{/* end of location section*/}
 					<div class="row">
 						<div class="col">
@@ -111,24 +108,24 @@ class Location extends React.Component {
 						<h6>Sunsets</h6>
 						{/* accordion start */}
 							<div class="accordion accordion-flush" id="accordionExample">
-								{this.state.places.map((place, i) => (
+								{this.state.activities.map((activity, i) => (
 									<div class="accordion-item">
 										<h2 class="accordion-header" id={`heading${i}`}>
 											<button
-												class={place.title === this.state.focus ? "accordion-button" : "accordion-button collapsed"}
+												class={activity.title === this.state.focus ? "accordion-button" : "accordion-button collapsed"}
 												type="button"
 												data-bs-toggle="collapse"
 												data-bs-target={`#collapse${i}`}
 												aria-expanded="false"
 												aria-controls={`collapse${i}`}
-												onClick={ev => this.zoomMap(ev.target.innerHTML, place.geometry)}
+												onClick={ev => this.zoomMap(ev.target.innerHTML, activity.geometry)}
 											>
-											{place.title}
+											{activity.title}
 											</button>
 										</h2>
 										<div
 											id={`collapse${i}`}
-											className={place.title === this.state.focus ? "accordion-collapse collapse show" : "accordion-collapse collapse collapsed"}
+											className={activity.title === this.state.focus ? "accordion-collapse collapse show" : "accordion-collapse collapse collapsed"}
 											aria-labelledby={`heading{i}`}
 											data-bs-parent="#accordionExample"
 										>
@@ -136,13 +133,13 @@ class Location extends React.Component {
 												<div class="row">
 													<div class="col-6">
 														<p>
-															{place.description}
+															{activity.description}
 														</p>
-														<p>{place.address}</p>
+														<p>{activity.address}</p>
 													</div>
 													<div class="col-6">
 														<img
-															src={place.image}
+															src={activity.image}
 															class="img-fluid"
 															alt=""
 														/>
