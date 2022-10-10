@@ -6,23 +6,14 @@ import Location from './location'
 // create classes
 class Where extends React.Component {
 	state = {
-		location: 'Koh Phangan',
 		submitLocation: false
 	}
-	setLocation = (form) => {
+	submitLocation = (form) => {
 		form.preventDefault()
-		// redirect to location page
-		// pass the location value as a prop
 		this.setState({
 			submitLocation: true
 		})
 	}
-	handleChange = (event) => {
-		this.setState({
-			location: event.target.value
-		})
-	}
-
   render() {
     return (
 			<>
@@ -43,14 +34,14 @@ class Where extends React.Component {
 									</div>
 									<div className="col-12">
 										<div className="card-body">
-											<form onSubmit={ev => this.setLocation(ev)}>
+											<form onSubmit={ev => this.submitLocation(ev)}>
 												<div className="mb-3">
 													<label className="form-label mb-0">Where To</label>
 													<select
 														className="form-select"
 														name="location"
-														value={this.location}
-														onChange={this.handleChange}
+														value={this.props.location}
+														onChange={ev => this.props.handleChange(ev)}
 													>
 														<option value="Any Location">Any Location</option>
 														<option disabled value="Koh Samui">Koh Samui</option>

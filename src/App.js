@@ -10,6 +10,18 @@ import Where from './Components/where'
 
 // create classes
 class App extends React.Component {
+	state = {
+		location: 'Koh Phangan'
+	}
+
+	// make this pass a 2nd variable as the state key name?
+	setLocation = async (ev) => {
+		await this.setState({
+			location: ev.target.value
+		})
+		console.log(this.state.location)
+	}
+
   render() {
     return (
 		<BrowserRouter>
@@ -19,8 +31,17 @@ class App extends React.Component {
 				<Route path='/profile' component={Profile} />
 				<Route path='/location' component={Location} />
 				<Route path='/map' component={Map} />
-				<Route path='/' component={Where} />
-
+				<Route exact path='/'
+       		render={(routerProps) => {
+        		return (
+        			<Where
+					 			location={this.state.location}
+								handleChange={this.setLocation}
+								routerProps={routerProps}
+							/>
+         		)
+       		}}
+				/>
       </Switch>
     </BrowserRouter>
 		)
