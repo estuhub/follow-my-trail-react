@@ -7,6 +7,7 @@ import Login from './Components/login'
 import Signup from './Components/signup'
 import Map from './Components/Partials/map'
 import Where from './Components/where'
+import Create from './Components/create'
 // import AutoComplete from './Components/Partials/autocomplete'
 
 // create classes
@@ -43,6 +44,7 @@ class App extends React.Component {
          		)
        		}}
 				/>
+				<Route path='/create' component={Create} />
       </Switch>
     </BrowserRouter>
 		)
