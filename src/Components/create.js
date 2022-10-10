@@ -18,14 +18,14 @@ class Create extends React.Component {
   render() {
     return (
       <>
-        <div class="container pt-4">
+        <div className="container pt-4">
           <form onSubmit={ev => this.createActivity(ev)}>
             <div>
               <h3>Create new activity</h3>
               {/* choose category */}
-              <div class="mb-3">
-                <label class="form-label m-0">Category</label>
-                <select name="category" class="form-control" required>
+              <div className="mb-3">
+                <label className="form-label m-0">Category</label>
+                <select name="category" className="form-control" required>
                   <option>- Choose a category -</option>
                   <option>Beach</option>
                   <option>Food</option>
@@ -36,39 +36,41 @@ class Create extends React.Component {
                 </select>
               </div>
               {/* title */}
-              <div class="mb-3">
-                <label class="form-label m-0">Short Title</label>
+              <div className="mb-3">
+                <label className="form-label m-0">Short Title</label>
                 <input
                   name="title"
                   type="text"
-                  class="form-control"
+                  className="form-control"
+									// eslint-disable-next-line
                   name="title"
                   required
                 />
               </div>
               {/* description */}
-              <div class="mb-3">
-                <label class="form-label m-0">Description</label>
+              <div className="mb-3">
+                <label className="form-label m-0">Description</label>
                 <textarea
                   name="description"
-                  class="form-control"
+                  className="form-control"
                   rows="7"
+									// eslint-disable-next-line
                   name="description"
                   required
                 ></textarea>
               </div>
               {/* city */}
-              <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">
+              <div className="mb-3">
+                <label for="exampleFormControlInput1" className="form-label">
                   City
                 </label>
-                <input type="text" class="form-control" name="city" required />
+                <input type="text" className="form-control" name="city" required />
               </div>
               {/* address */}
-              <div class="mb-3">
+              <div className="mb-3">
                 <label
                   for="exampleFormControlInput1"
-                  class="form-label"
+                  className="form-label"
                   name="address"
                 >
                   Address
@@ -76,12 +78,12 @@ class Create extends React.Component {
                 <AutoComplete />
               </div>
               {/* picture */}
-              <div class="mb-3">
-                <label for="formFileSm" class="form-label">
+              <div className="mb-3">
+                <label for="formFileSm" className="form-label">
                   Add a picture
                 </label>
                 <input
-                  class="form-control form-control-sm"
+                  className="form-control form-control-sm"
                   id="formFileSm"
                   type="file"
                   name="image"
@@ -89,7 +91,7 @@ class Create extends React.Component {
               </div>
               {/* button */}
               <div>
-                <button class="btn btn-success">Submit</button>
+                <button className="btn btn-success">Submit</button>
               </div>
             </div>
           </form>

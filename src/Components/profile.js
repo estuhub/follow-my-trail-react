@@ -27,92 +27,92 @@ class Profile extends React.Component {
   render() {
     return (
       <>
-        <div class="container">
-          <div class="row">
-            <div class="col-5">
-              <div class="row">
-                <div class="col-10">
-                  <p class="h2">Profile</p>
+        <div className="container">
+          <div className="row">
+            <div className="col-5">
+              <div className="row">
+                <div className="col-10">
+                  <p className="h2">Profile</p>
                 </div>
-                <div class="col-10 border-top border-grey">
+                <div className="col-10 border-top border-grey">
                   <form action="/profile?_method=PATCH" method="POST">
-                    <div class="my-3">
-                      <label class="form-label mb-0">Name</label>
+                    <div className="my-3">
+                      <label className="form-label mb-0">Name</label>
                       <input
                         name="name"
                         type="text"
-                        class="form-control"
+                        className="form-control"
                         value={ this.state.user.name }
                       />
                     </div>
-                    <div class="mb-3">
-                      <label class="form-label mb-0">Email</label>
+                    <div className="mb-3">
+                      <label className="form-label mb-0">Email</label>
                       <input
                         name="email"
                         type="email"
-                        class="form-control"
+                        className="form-control"
                         value={  this.state.user.email }
                       />
                     </div>
-                    <div class="mb-3">
-                      <label class="form-label">Profile Picture</label>
-                      <div class="host">
+                    <div className="mb-3">
+                      <label className="form-label">Profile Picture</label>
+                      <div className="host">
                         <img
                           src={  this.state.user.avatar }
                           alt="profile"
-                          class="mb-3"
+                          className="mb-3"
                         />
                       </div>
                       <input
                         name="avatar"
                         value={  this.state.user.avatar }
                         type="url"
-                        class="form-control"
+                        className="form-control"
                       />
                     </div>
-	                    <button class="btn btn-success">Save Changes</button>
+	                    <button className="btn btn-success">Save Changes</button>
                   </form>
 
                 </div>
               </div>
             </div>
-            <div class="col-7">
-              <div class="row">
-                <div class="col-12 border-bottom border-grey mb-3">
-                  <p class="h2">My Travels</p>
+            <div className="col-7">
+              <div className="row">
+                <div className="col-12 border-bottom border-grey mb-3">
+                  <p className="h2">My Travels</p>
                 </div>
-                <div class="col-12 mb-3">
-                  <a href="/houses/create" class="btn btn-success">
+                <div className="col-12 mb-3">
+                  <a href="/houses/create" className="btn btn-success">
                     List an activity
                   </a>
                 </div>
-                <div class="col">
+                <div className="col">
                   <div>
                     <div>
                       <img
                         src="https://a0.muscache.com/im/pictures/miso/Hosting-51904821/original/68062df7-7915-497c-a0a5-1f224be59d66.jpeg?im_w=720"
-                        class="card-img-top"
+                        className="card-img-top"
                         alt="..."
                       />
                     </div>
-                    <div class="card-body">
-                      <h5 class="card-title mb-0">Buenos Aires</h5>
-                      <small class="text-muted"> 153 places </small>
+                    <div className="card-body">
+                      <h5 className="card-title mb-0">Buenos Aires</h5>
+                      <small className="text-muted"> 153 places </small>
                     </div>
                   </div>
                 </div>
-                <div class="col">
+                <div className="col">
                   <div>
                     <div>
                       <img
                         src="https://a0.muscache.com/im/pictures/miso/Hosting-51904821/original/68062df7-7915-497c-a0a5-1f224be59d66.jpeg?im_w=720"
-                        class="card-img-top"
+                        className="card-img-top"
                         alt="..."
                       />
                     </div>
-                    <div class="card-body">
-                      <h5 class="card-title mb-0">Koh Phangan</h5>
-                      <small class="text-muted"> 45 places </small>
+                    <div className="card-body">
+                      <h5 className="card-title mb-0">Koh Phangan</h5>
+                      <small className="text-muted"> 45 places </small>
                     </div>
                   </div>
                 </div>
