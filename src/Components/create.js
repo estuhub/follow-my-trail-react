@@ -6,15 +6,19 @@ import axios from "axios";
 // create classes
 class Create extends React.Component {
   createActivity = async form => {
-    form.preventDefault();
-    console.log(form);
-    let activity = await axios.post(
-      process.env.REACT_APP_SERVER_URL + "/activities"
-    );
+    form.preventDefault()
+    await axios.post(
+      process.env.REACT_APP_SERVER_URL + "/activities", {
+				title: form.target.title.value,
+				category: form.target.category.value,
+				description: form.target.description.value,
+				image: form.target.image.value
+			}
+    )
     // this.setState({
     //   loggedIn: login.data
-    // });
-  };
+    // })
+  }
   render() {
     return (
       <>
@@ -75,7 +79,6 @@ class Create extends React.Component {
                 >
                   Address
                 </label>
-                <AutoComplete />
               </div>
               {/* picture */}
               <div className="mb-3">
