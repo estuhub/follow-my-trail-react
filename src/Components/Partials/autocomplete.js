@@ -7,7 +7,7 @@ const AutoComplete = () => {
  const inputRef = useRef()
  const options = {
   componentRestrictions: { country: "th" },
-  fields: ["address_components", "geometry", "icon", "name"],
+  fields: ["address_components", "geometry", "latLngLiteral", "icon", "name"],
   types: []
  }
  useEffect(() => {
@@ -18,12 +18,13 @@ const AutoComplete = () => {
    autoCompleteRef.current.addListener("place_changed", async function () {
     const place = await autoCompleteRef.current.getPlace();
     console.log({ place });
+		console.log(place.geometry)
    });
   });
  return (
   <div>
    {/* <label>enter address :</label> */}
-   <input type="text" class="form-control" required ref={inputRef} />
+   <input type="text" class="form-control" name="search" required ref={inputRef} />
   </div>
  )
 }

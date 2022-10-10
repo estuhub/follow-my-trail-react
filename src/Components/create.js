@@ -11,17 +11,17 @@ class Create extends React.Component {
 	}
   createActivity = async form => {
     form.preventDefault()
-    await axios.post(
-      process.env.REACT_APP_SERVER_URL + "/activities", {
-				title: form.target.title.value,
-				category: form.target.category.value,
-				description: form.target.description.value,
-				image: form.target.image.value
-			}
-    )
-    this.setState({
-      activityCreated: true //login.data
-    })
+    // await axios.post(
+    //   process.env.REACT_APP_SERVER_URL + "/activities", {
+		// 		title: form.target.title.value,
+		// 		category: form.target.category.value,
+		// 		description: form.target.description.value,
+		// 		image: form.target.image.value
+		// 	}
+    // )
+    // this.setState({
+    //   activityCreated: true //login.data
+    // })
   }
   render() {
     return (
