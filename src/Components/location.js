@@ -28,7 +28,7 @@ class Location extends React.Component {
 	// not yet linked to selected/specific location
 	// rename to setPlaces
 	setPlace = async () => {
-		let places = await axios.get(`${process.env.REACT_APP_SERVER_URL}/map/koh-phangan/places`)
+		let places = await axios.get(`${process.env.REACT_APP_SERVER_URL}/map/koh-phangan/activities`)
 		places = JSON.parse(places.request.response)
 		// console.log(places)
 		this.setState ({
@@ -115,7 +115,7 @@ class Location extends React.Component {
 									<div class="accordion-item">
 										<h2 class="accordion-header" id={`heading${i}`}>
 											<button
-												class={place.name === this.state.focus ? "accordion-button" : "accordion-button collapsed"}
+												class={place.title === this.state.focus ? "accordion-button" : "accordion-button collapsed"}
 												type="button"
 												data-bs-toggle="collapse"
 												data-bs-target={`#collapse${i}`}
@@ -123,12 +123,12 @@ class Location extends React.Component {
 												aria-controls={`collapse${i}`}
 												onClick={ev => this.zoomMap(ev.target.innerHTML, place.geometry)}
 											>
-											{place.name}
+											{place.title}
 											</button>
 										</h2>
 										<div
 											id={`collapse${i}`}
-											className={place.name === this.state.focus ? "accordion-collapse collapse show" : "accordion-collapse collapse collapsed"}
+											className={place.title === this.state.focus ? "accordion-collapse collapse show" : "accordion-collapse collapse collapsed"}
 											aria-labelledby={`heading{i}`}
 											data-bs-parent="#accordionExample"
 										>
@@ -142,7 +142,7 @@ class Location extends React.Component {
 													</div>
 													<div class="col-6">
 														<img
-															src={place.images[0]}
+															src={place.image}
 															class="img-fluid"
 															alt=""
 														/>

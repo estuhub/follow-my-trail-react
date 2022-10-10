@@ -38,7 +38,7 @@ class Map extends React.Component {
 	}
 
 	setPlace = async () => {
-		let places = await axios.get(`${process.env.REACT_APP_SERVER_URL}/map/koh-phangan/places`)
+		let places = await axios.get(`${process.env.REACT_APP_SERVER_URL}/map/koh-phangan/activities`)
 		places = JSON.parse(places.request.response)
 		// console.log(places.geometry)
 		this.setState ({
