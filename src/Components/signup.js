@@ -26,20 +26,14 @@ class Login extends React.Component {
 
 	signup = async (form) => {
 		form.preventDefault()
-		// need to send form data to backend route that is for signing up (copy airbnb logic)
-		// then run log in afterwards, and redirect
-
-		// let signup = await axios.post(process.env.REACT_APP_SERVER_URL + '/auth/login', {
-		//   email: form.target.email.value,
-		//   password: form.target.password.value
-		// 	}
-		// )
-
-		// login
-		//login(object from processed form)
-		// this.setState({
-		// 	loggedIn: login.data
-		// })
+		await axios.post(process.env.REACT_APP_SERVER_URL + '/auth/signup', {
+			email: form.target.email.value,
+			password: form.target.password.value,
+			name: form.target.name.value,
+			avatar: form.target.avatar.value
+			}
+		)
+		this.login(form)
 	}
 
   render() {
