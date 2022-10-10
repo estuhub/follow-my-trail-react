@@ -1,149 +1,165 @@
 // import
 import React from "react";
 import Map from './Partials/map'
+import axios from 'axios'
+
+/*
+to do
+pull initial map state from location
+	set location name in page from it
+considering categories
+*/
 
 // create classes
 class Location extends React.Component {
+	state = {
+		places: [],
+		map: {
+      center: {
+        lat: 55,
+        lng: 0
+      },
+      zoom: 5
+    },
+		focus: 'location'
+	}
+
+	// fetch all places from database
+	// not yet linked to selected/specific location
+	// rename to setPlaces
+	setPlace = async () => {
+		let places = await axios.get(`${process.env.REACT_APP_SERVER_URL}/map/koh-phangan/places`)
+		places = JSON.parse(places.request.response)
+		// console.log(places)
+		this.setState ({
+			places
+		})
+		// console.log(this.state.places[0].address)
+	}
+	componentDidMount() {
+		this.setMap()
+		this.setPlace()
+	}
+
+	// duplicated on map component
+	setMap = async () => {
+		let mapGeometry = await axios.get(`${process.env.REACT_APP_SERVER_URL}/map/koh-phangan`)
+		mapGeometry = JSON.parse(mapGeometry.request.response)
+		this.setState ({
+			map: {
+				center: {
+					lat: mapGeometry.geometry.lat,
+					lng: mapGeometry.geometry.lng,
+				},
+				zoom: mapGeometry.geometry.zoom
+			},
+			focus: 'location'
+		})
+	}
+
+	// updates state 'map' - also takes name
+	// zoom wants to be fed from data
+	// also need the collapsing to change map
+	zoomMap = (name, geometry) => {
+		console.log(name)
+		console.log(this.state.focus);
+		// console.log(geometry)
+		this.setState ({
+			map: {
+				center: {
+					lat: geometry.lat,
+					lng: geometry.lng
+				},
+				zoom: 15
+			},
+			focus: name
+		})
+		if (name === this.state.focus) {
+			this.setMap()
+
+		}
+		// console.log(this.state.map.center.lat)
+		// console.log(this.state.map.center.lng)
+		// console.log(this.state.map.zoom)
+	}
+
+	// updates state 'focus'
+	updateFocus = (param) => {
+		console.log(param)
+		// console.log(this.state.places)
+		this.setState ({
+			focus: param
+		})
+		let place = this.state.places.filter(place => place.name === param)[0]
+		console.log(place.geometry)
+	this.zoomMap(param, place.geometry)
+		// console.log(this.state.focus)
+	}
+
   render() {
     return (
-      <>
-        <div className="container">
-          {/* location */}
-          <h2 className="pt-4">Koh Phangan</h2>
-          <small className="card-text">120 places</small>
-          <div className="row">
-            {/* card section */}
-            <div className="col">
-              <div className="wrap"></div>
-            </div>
-          </div>
-          {/* end of location section*/}
-          {/* activities & map section */}
-          <div className="row mt-4">
-            <div className="col-6">
-              <h5 className="mb-3">Things to do</h5>
-              {/* category start */}
-              <h6>Sunsets</h6>
-              {/* accordion start */}
-              <div className="accordion accordion-flush" id="accordionExample">
-                <div className="accordion-item">
-                  <h2 className="accordion-header" id="headingOne">
-                    <button
-                      className="accordion-button"
-                      type="button"
-                      data-bs-toggle="collapse"
-                      data-bs-target="#collapseOne"
-                      aria-expanded="true"
-                      aria-controls="collapseOne"
-                    >
-                      Zen Beach with Drums
-                    </button>
-                  </h2>
-                  <div
-                    id="collapseOne"
-                    className="accordion-collapse collapse show"
-                    aria-labelledby="headingOne"
-                    data-bs-parent="#accordionExample"
-                  >
-                    <div className="accordion-body">
-                      <div className="row">
-                        <div className="col-6">
-                          <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing
-                            elit, sed do eiusmod tempor incididunt ut labore et
-                            dolore magna aliqua. Ut enim ad minim veniam, quis
-                            nostrud exercitation ullamco laboris nisi ut aliquip
-                            ex ea commodo consequat.
-                          </p>
-                          <span>Adress: Zen Beach, Koh Phangan</span>
-                        </div>
-                        <div className="col-6">
-                          <img
-                            src="https://www.asiablue-scuba.com/wp-content/uploads/2021/12/zen-beach-koh-phangan.jpg"
-                            className="img-fluid"
-                            alt=""
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="accordion-item">
-                  <h2 className="accordion-header" id="headingTwo">
-                    <button
-                      className="accordion-button collapsed"
-                      type="button"
-                      data-bs-toggle="collapse"
-                      data-bs-target="#collapseTwo"
-                      aria-expanded="false"
-                      aria-controls="collapseTwo"
-                    >
-                      Cocohut Resort
-                    </button>
-                  </h2>
-                  <div
-                    id="collapseTwo"
-                    className="accordion-collapse collapse"
-                    aria-labelledby="headingTwo"
-                    data-bs-parent="#accordionExample"
-                  >
-                    <div className="accordion-body">
-                      <strong>This is the second item's accordion body.</strong>{" "}
-                      It is hidden by default, until the collapse plugin adds
-                      the appropriate classNamees that we use to style each element.
-                      These classNamees control the overall appearance, as well as
-                      the showing and hiding via CSS transitions. You can modify
-                      any of this with custom CSS or overriding our default
-                      variables. It's also worth noting that just about any HTML
-                      can go within the
-                      <code>.accordion-body</code>, though the transition does
-                      limit overflow.
-                    </div>
-                  </div>
-                </div>
-                <div className="accordion-item">
-                  <h2 className="accordion-header" id="headingThree">
-                    <button
-                      className="accordion-button collapsed"
-                      type="button"
-                      data-bs-toggle="collapse"
-                      data-bs-target="#collapseThree"
-                      aria-expanded="false"
-                      aria-controls="collapseThree"
-                    >
-                      Apachada View Point
-                    </button>
-                  </h2>
-                  <div
-                    id="collapseThree"
-                    className="accordion-collapse collapse"
-                    aria-labelledby="headingThree"
-                    data-bs-parent="#accordionExample"
-                  >
-                    <div className="accordion-body">
-                      <strong>This is the third item's accordion body.</strong>{" "}
-                      It is hidden by default, until the collapse plugin adds
-                      the appropriate classNamees that we use to style each element.
-                      These classNamees control the overall appearance, as well as
-                      the showing and hiding via CSS transitions. You can modify
-                      any of this with custom CSS or overriding our default
-                      variables. It's also worth noting that just about any HTML
-                      can go within the
-                      <code>.accordion-body</code>, though the transition does
-                      limit overflow.
-                    </div>
-                  </div>
-                </div>
-              </div>
-              {/* accordion end */}
-            </div>
-            <div className="col-6">
-              {/* map */}
-              <Map />
-            </div>
-          </div>
-        </div>
-      </>
+			<>
+			  <div class="container">
+					{/* location */}
+					<h2 class="pt-4">Koh Phangan</h2>
+					<small class="card-text">120 places</small>
+					{/* end of location section*/}
+					<div class="row">
+						<div class="col">
+						<h5 class="mb-3">Things to do</h5>
+						{/* category start */}
+						<h6>Sunsets</h6>
+						{/* accordion start */}
+							<div class="accordion accordion-flush" id="accordionExample">
+								{this.state.places.map((place, i) => (
+									<div class="accordion-item">
+										<h2 class="accordion-header" id={`heading${i}`}>
+											<button
+												class={place.name === this.state.focus ? "accordion-button" : "accordion-button collapsed"}
+												type="button"
+												data-bs-toggle="collapse"
+												data-bs-target={`#collapse${i}`}
+												aria-expanded="false"
+												aria-controls={`collapse${i}`}
+												onClick={ev => this.zoomMap(ev.target.innerHTML, place.geometry)}
+											>
+											{place.name}
+											</button>
+										</h2>
+										<div
+											id={`collapse${i}`}
+											className={place.name === this.state.focus ? "accordion-collapse collapse show" : "accordion-collapse collapse collapsed"}
+											aria-labelledby={`heading{i}`}
+											data-bs-parent="#accordionExample"
+										>
+											<div class="accordion-body">
+												<div class="row">
+													<div class="col-6">
+														<p>
+															{place.description}
+														</p>
+														<p>{place.address}</p>
+													</div>
+													<div class="col-6">
+														<img
+															src={place.images[0]}
+															class="img-fluid"
+															alt=""
+														/>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								))}
+							</ div>
+						</div>
+						<div class="col">
+							<Map map={this.state.map} updateFocus={this.updateFocus}/>
+						</div>
+					</div>
+				</div>
+		</>
     );
   }
 }
