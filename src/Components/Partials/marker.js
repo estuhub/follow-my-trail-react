@@ -1,5 +1,7 @@
 // import
 import React from "react"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faLocationDot } from '@fortawesome/free-solid-svg-icons'
 
 //do I need the map state here?
 // tidy up a lot, actually. Pass down any funcs I need, remove dead ones.
@@ -28,20 +30,16 @@ class Marker extends React.Component {
   		height: '600px'
     },
 		pin: {
-			width: '50px',
-			height: '50px'
+			width: '20px',
+			height: '20px'
 		}
 	}
 	return (
 		<div className="Pin"
 		onClick={(ev) => this.markerOnClick(ev)}
 		>
-			<img
-				src="https://th.bing.com/th/id/OIP.PswRYJEO6ptKds__PAoKXQAAAA?pid=ImgDet&w=300&h=275&rs=1"
-				alt=""
-				className="avatar-img"
-				style={styles.pin}
-			/>
+			<FontAwesomeIcon icon={faLocationDot} className="avatar-img"
+			style={styles.pin}> </FontAwesomeIcon>
 	</div>
 	)
   }

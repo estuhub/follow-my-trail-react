@@ -7,7 +7,8 @@ import Login from './Components/login'
 import Signup from './Components/signup'
 import Map from './Components/Partials/map'
 import Where from './Components/where'
-// import AutoComplete from './Components/Partials/autocomplete'
+import Icons from './Components/Partials/test'
+import Nav from './Components/Partials/nav'
 
 // create classes
 class App extends React.Component {
@@ -31,6 +32,8 @@ class App extends React.Component {
 				<Route path='/login' component={Login} />
 				<Route path='/profile' component={Profile} />
 				<Route path='/location' component={Location} />
+				<Route path='/test' component={Icons} />
+				<Route path='/nav' component={Nav} />
 				<Route path='/map' component={Map} />
 				<Route exact path='/'
        		render={(routerProps) => {
