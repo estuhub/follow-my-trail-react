@@ -109,9 +109,18 @@ class Location extends React.Component {
 		console.log(locationAdded.data)
 	}
 
-	categoriseActivity = (category, activity) => {
+	categoriseActivity = async (category, activity) => {
+		console.log(this.props.user.id)
 		console.log(category)
 		console.log(activity)
+		let categoriseActivity = await axios.post(`${process.env.REACT_APP_SERVER_URL}/activities/categorise`, {
+			userID: this.props.user.id,
+			category,
+			activity
+
+		})
+		console.log(categoriseActivity)
+
 		// takes activity name and category
 		// updates user in database
 			// user - activities object
@@ -167,8 +176,8 @@ class Location extends React.Component {
 														</p>
 														<p>{activity.address}</p>
 														<button value="likes" onClick={ev => this.categoriseActivity(ev.target.value, activity.title)}>Like</button>
-														<button value="dislikes" onClick={ev => this.categoriseActivity(ev.target.value)}>Not interested</button>
-														<button value="been" onClick={ev => this.categoriseActivity(ev.target.value)}>Been</button>
+														<button value="dislikes" onClick={ev => this.categoriseActivity(ev.target.value, activity.title)}>Not interested</button>
+														<button value="been" onClick={ev => this.categoriseActivity(ev.target.value, activity.title)}>Been</button>
 													</div>
 													<div class="col-6">
 														<img
