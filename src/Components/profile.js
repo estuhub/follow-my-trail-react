@@ -1,25 +1,21 @@
 // import
 import React from "react";
-import axios from 'axios'
 import Nav from './Partials/nav'
+// import axios from 'axios'
 
 // create classes
 class Profile extends React.Component {
-	state = {
-		user: {}
-	}
-	changeInput = (val) => {
-		this.setState ({
-			user: val
-		})
-	}
-	getResults = async () => {
-		let user = await axios.get(`${process.env.REACT_APP_SERVER_URL}/auth/user`)
-		user = JSON.parse(user.request.response)
-		this.props.handleChange(user)
-	}
+
+	// change to pulling user from props
+	// getResults = async () => {
+	// 	let user = await axios.get(`${process.env.REACT_APP_SERVER_URL}/auth/user`)
+	// 	user = JSON.parse(user.request.response)
+	// 	this.props.handleChange(user)
+	// 	console.log(this.props.user);
+	// }
 	componentWillMount() {
-		this.getResults()
+		console.log(this.props.user)
+		// this.getResults()
 	}
 
   render() {
@@ -50,21 +46,21 @@ class Profile extends React.Component {
                         name="email"
                         type="email"
                         className="form-control"
-                        value={  this.props.user.email }
+                        value={ this.props.user.email }
                       />
                     </div>
                     <div className="mb-3">
                       <label className="form-label">Profile Picture</label>
                       <div className="host">
                         <img
-                          src={  this.props.user.avatar }
+                          src={ this.props.user.avatar }
                           alt="profile"
                           className="mb-3"
                         />
                       </div>
                       <input
                         name="avatar"
-                        value={  this.props.user.avatar }
+                        value={ this.props.user.avatar }
                         type="url"
                         className="form-control"
                       />
@@ -85,36 +81,25 @@ class Profile extends React.Component {
                     List an activity
                   </a>
                 </div>
-                <div className="col">
-                  <div>
-                    <div>
-                      <img
-                        src="https://a0.muscache.com/im/pictures/miso/Hosting-51904821/original/68062df7-7915-497c-a0a5-1f224be59d66.jpeg?im_w=720"
-                        className="card-img-top"
-                        alt="..."
-                      />
-                    </div>
-                    <div className="card-body">
-                      <h5 className="card-title mb-0">Buenos Aires</h5>
-                      <small className="text-muted"> 153 places </small>
-                    </div>
-                  </div>
-                </div>
-                <div className="col">
-                  <div>
-                    <div>
-                      <img
-                        src="https://a0.muscache.com/im/pictures/miso/Hosting-51904821/original/68062df7-7915-497c-a0a5-1f224be59d66.jpeg?im_w=720"
-                        className="card-img-top"
-                        alt="..."
-                      />
-                    </div>
-                    <div className="card-body">
-                      <h5 className="card-title mb-0">Koh Phangan</h5>
-                      <small className="text-muted"> 45 places </small>
-                    </div>
-                  </div>
-                </div>
+								
+								{this.props.user.trips.map(trip => 	                <div className="col">
+	                  <div>
+	                    <div>
+	                      <img
+	                        src="https://a0.muscache.com/im/pictures/miso/Hosting-51904821/original/68062df7-7915-497c-a0a5-1f224be59d66.jpeg?im_w=720"
+	                        className="card-img-top"
+	                        alt="..."
+	                      />
+	                    </div>
+	                    <div className="card-body">
+	                      <h5 className="card-title mb-0">{trip}</h5>
+	                      <small className="text-muted"> 153 places </small>
+	                    </div>
+	                  </div>
+	                </div>
+									)
+								}
+
               </div>
             </div>
           </div>

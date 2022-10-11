@@ -14,7 +14,11 @@ import Create from './Components/create'
 class App extends React.Component {
 	state = {
 		location: 'Koh Phangan',
-		user: {}
+		user: {
+			name: 'Ise',
+			id: '633d29b6e4273dea88bda749',
+			trips: ['Koh Phangan', 'Koh Tao']
+		}
 	}
 
 	// make this pass a 2nd variable as the state key name?
@@ -56,6 +60,7 @@ class App extends React.Component {
 						return (
 							<Location
 								location={this.state.location}
+								user={this.state.user}
 								routerProps={routerProps}
 							/>
 						)

@@ -94,19 +94,20 @@ class Location extends React.Component {
 		// console.log(this.state.focus)
 	}
 
-	addLocation = () => {
+	addLocation = async () => {
 		//if clicked, takes location state from props
 		console.log(this.props.location)
 		//sends post request to backend
-		// await axios.post(`${process.env.REACT_APP_SERVER_URL}/add-location`, {
-		// 	location: this.props.location,
-		// 	user: ''
-		// })
-		console.log('trip added')
+		// with user ID and location name
+		// route finds user document and updates document
+		let locationAdded = await axios.post(`${process.env.REACT_APP_SERVER_URL}/profile/add-location`, {
+			location: this.props.location,
+			user: this.props.user
+		})
+		// updates 'trips' array to include that location and returns
+		// !! update user in app state (to include the trips)
+		console.log(locationAdded.data)
 
-			// with user ID and location name
-			// route finds user document and updates document
-			// updates 'trips' array to include that location
 	}
 
   render() {
