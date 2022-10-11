@@ -1,21 +1,14 @@
 // import
-import React from "react";
+import React from "react"
+import { withRouter } from 'react-router-dom'
 import Nav from './Partials/nav'
 // import axios from 'axios'
 
-// create classes
 class Profile extends React.Component {
 
-	// change to pulling user from props
-	// getResults = async () => {
-	// 	let user = await axios.get(`${process.env.REACT_APP_SERVER_URL}/auth/user`)
-	// 	user = JSON.parse(user.request.response)
-	// 	this.props.handleChange(user)
-	// 	console.log(this.props.user);
-	// }
-	componentWillMount() {
-		console.log(this.props.user)
-		// this.getResults()
+	tripRedirect = (trip) => {
+		// console.log(this.props.history)
+		this.props.history.push("/location")
 	}
 
   render() {
@@ -67,7 +60,6 @@ class Profile extends React.Component {
                     </div>
 	                    <button className="btn btn-success">Save Changes</button>
                   </form>
-
                 </div>
               </div>
             </div>
@@ -81,9 +73,9 @@ class Profile extends React.Component {
                     List an activity
                   </a>
                 </div>
-								
-								{this.props.user.trips.map(trip => 	                <div className="col">
-	                  <div>
+								{this.props.user.trips.map(trip =>
+									<div className="col">
+	                  <div onClick={e => this.tripRedirect(trip)}>
 	                    <div>
 	                      <img
 	                        src="https://a0.muscache.com/im/pictures/miso/Hosting-51904821/original/68062df7-7915-497c-a0a5-1f224be59d66.jpeg?im_w=720"
@@ -99,7 +91,6 @@ class Profile extends React.Component {
 	                </div>
 									)
 								}
-
               </div>
             </div>
           </div>
@@ -110,4 +101,17 @@ class Profile extends React.Component {
 }
 
 // export
-export default Profile;
+export default withRouter(Profile)
+
+// change to pulling user from props
+// getResults = async () => {
+// 	let user = await axios.get(`${process.env.REACT_APP_SERVER_URL}/auth/user`)
+// 	user = JSON.parse(user.request.response)
+// 	this.props.handleChange(user)
+// 	console.log(this.props.user);
+// }
+
+// componentWillMount() {
+// 	console.log(this.props.user)
+// 	// this.getResults()
+// }
