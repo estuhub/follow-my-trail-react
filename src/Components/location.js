@@ -107,6 +107,16 @@ class Location extends React.Component {
 		// updates 'trips' array to include that location and returns
 		// !! update user in app state (to include the trips)
 		console.log(locationAdded.data)
+	}
+
+	categoriseActivity = (category, activity) => {
+		console.log(category)
+		console.log(activity)
+		// takes activity name and category
+		// updates user in database
+			// user - activities object
+			// files the activity name into the relevant category
+			// done
 
 	}
 
@@ -116,7 +126,7 @@ class Location extends React.Component {
 				<Nav />
 			  <div class="container">
 					{/* location */}
-					<h2 class="pt-4">Koh Phangan</h2>
+					<h2 class="pt-4">{this.props.location}</h2>
 					<button onClick={this.addLocation}>Add location to profile</button>
 					<small class="card-text">120 activities</small>
 					{/* end of location section*/}
@@ -156,6 +166,9 @@ class Location extends React.Component {
 															{activity.description}
 														</p>
 														<p>{activity.address}</p>
+														<button value="likes" onClick={ev => this.categoriseActivity(ev.target.value, activity.title)}>Like</button>
+														<button value="dislikes" onClick={ev => this.categoriseActivity(ev.target.value)}>Not interested</button>
+														<button value="been" onClick={ev => this.categoriseActivity(ev.target.value)}>Been</button>
 													</div>
 													<div class="col-6">
 														<img
