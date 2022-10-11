@@ -1,6 +1,7 @@
 // import
 import React from "react";
 import axios from 'axios'
+import Nav from './Partials/nav'
 
 // create classes
 class Profile extends React.Component {
@@ -8,25 +9,23 @@ class Profile extends React.Component {
 		user: {}
 	}
 	changeInput = (val) => {
-		console.log(val)
 		this.setState ({
 			user: val
 		})
 	}
 	getResults = async () => {
-		// console.log('hi');
-		// e.preventDefault()
-		let tester = await axios.get(process.env.REACT_APP_SERVER_URL)
-		let user = JSON.parse(tester.request.response)
-		// console.log(user.name)
-		this.changeInput(user)
+		let user = await axios.get(`${process.env.REACT_APP_SERVER_URL}/auth/user`)
+		user = JSON.parse(user.request.response)
+		this.props.handleChange(user)
 	}
 	componentWillMount() {
 		this.getResults()
 	}
+
   render() {
     return (
       <>
+				<Nav />
         <div className="container">
           <div className="row">
             <div className="col-5">
@@ -42,7 +41,7 @@ class Profile extends React.Component {
                         name="name"
                         type="text"
                         className="form-control"
-                        value={ this.state.user.name }
+                        value={ this.props.user.name }
                       />
                     </div>
                     <div className="mb-3">
@@ -51,21 +50,21 @@ class Profile extends React.Component {
                         name="email"
                         type="email"
                         className="form-control"
-                        value={  this.state.user.email }
+                        value={  this.props.user.email }
                       />
                     </div>
                     <div className="mb-3">
                       <label className="form-label">Profile Picture</label>
                       <div className="host">
                         <img
-                          src={  this.state.user.avatar }
+                          src={  this.props.user.avatar }
                           alt="profile"
                           className="mb-3"
                         />
                       </div>
                       <input
                         name="avatar"
-                        value={  this.state.user.avatar }
+                        value={  this.props.user.avatar }
                         type="url"
                         className="form-control"
                       />
@@ -82,7 +81,7 @@ class Profile extends React.Component {
                   <p className="h2">My Travels</p>
                 </div>
                 <div className="col-12 mb-3">
-                  <a href="/houses/create" className="btn btn-success">
+                  <a href="/create" className="btn btn-success">
                     List an activity
                   </a>
                 </div>

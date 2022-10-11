@@ -2,6 +2,7 @@
 import React from "react";
 import Map from './Partials/map'
 import axios from 'axios'
+import Nav from './Partials/nav'
 
 /*
 to do
@@ -93,17 +94,35 @@ class Location extends React.Component {
 		// console.log(this.state.focus)
 	}
 
+	addLocation = () => {
+		//if clicked, takes location state from props
+		console.log(this.props.location)
+		//sends post request to backend
+		// await axios.post(`${process.env.REACT_APP_SERVER_URL}/add-location`, {
+		// 	location: this.props.location,
+		// 	user: ''
+		// })
+		console.log('trip added')
+
+			// with user ID and location name
+			// route finds user document and updates document
+			// updates 'trips' array to include that location
+	}
+
   render() {
     return (
 			<>
+				<Nav />
 			  <div class="container">
 					{/* location */}
 					<h2 class="pt-4">Koh Phangan</h2>
+					<button onClick={this.addLocation}>Add location to profile</button>
 					<small class="card-text">120 activities</small>
 					{/* end of location section*/}
 					<div class="row">
 						<div class="col">
 						<h5 class="mb-3">Things to do</h5>
+						<button>Create new activity</button>
 						{/* category start */}
 						<h6>Sunsets</h6>
 						{/* accordion start */}

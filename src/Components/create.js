@@ -4,6 +4,7 @@ import GooglePlacesAutocomplete from 'react-google-places-autocomplete'
 import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 import axios from "axios";
 import { Redirect } from 'react-router-dom'
+import Nav from './Partials/nav'
 
 // create classes
 class Create extends React.Component {
@@ -34,6 +35,7 @@ class Create extends React.Component {
   render() {
     return (
       <>
+				<Nav />
 				{!this.state.activityCreated ?
 	        <div className="container pt-4">
 	          <form onSubmit={ev => this.createActivity(ev)}>

@@ -29,6 +29,9 @@ class Nav extends React.Component {
 							><img className="logo" src="./logo192.png" alt="somelogo"
 						/></a>
 					</div>
+					<p>Location</p>
+					<p>Create activity</p>
+					<p>Discover</p>
 					<div className="col text-end">
 						<a href="/profile" className="btn btn-outline-secondary">
 							<img

@@ -13,7 +13,8 @@ import Create from './Components/create'
 // create classes
 class App extends React.Component {
 	state = {
-		location: 'Koh Phangan'
+		location: 'Koh Phangan',
+		user: {}
 	}
 
 	// make this pass a 2nd variable as the state key name?
@@ -24,14 +25,20 @@ class App extends React.Component {
 		console.log(this.state.location)
 	}
 
+	setUser = async (obj) => {
+		await this.setState({
+			user: obj
+		})
+		console.log(this.state.user)
+	}
+
   render() {
     return (
 		<BrowserRouter>
       <Switch>
         <Route path='/signup' component={Signup} />
 				<Route path='/login' component={Login} />
-				<Route path='/profile' component={Profile} />
-				<Route path='/location' component={Location} />
+				<Route path='/create' component={Create} />
 				<Route path='/map' component={Map} />
 				<Route exact path='/'
        		render={(routerProps) => {
@@ -44,7 +51,26 @@ class App extends React.Component {
          		)
        		}}
 				/>
-				<Route path='/create' component={Create} />
+				<Route exact path='/location'
+					render={(routerProps) => {
+						return (
+							<Location
+								location={this.state.location}
+								routerProps={routerProps}
+							/>
+						)
+					}}
+				/>
+				<Route exact path='/profile'
+					render={(routerProps) => {
+						return (
+							<Profile
+								user={this.state.user}
+								handleChange={this.setUser}
+							/>
+						)
+					}}
+				/>
       </Switch>
     </BrowserRouter>
 		)
