@@ -9,6 +9,8 @@ to do
 pull initial map state from location
 	set location name in page from it
 considering categories
+
+Could make the accordion be fed from a component into location and trip with the activity as props
 */
 
 // create classes
@@ -114,19 +116,19 @@ class Trip extends React.Component {
 		})
 		// updates 'trips' array to include that location and returns
 		// !! update user in app state (to include the trips)
-		console.log(locationAdded.data)
+		// console.log(locationAdded.data)
 	}
 
 	categoriseActivity = async (category, activity) => {
-		console.log(this.props.user.id)
-		console.log(category)
-		console.log(activity)
+		// console.log(this.props.user.id)
+		// console.log(category)
+		// console.log(activity)
 		let categoriseActivity = await axios.post(`${process.env.REACT_APP_SERVER_URL}/activities/categorise`, {
 			userID: this.props.user.id,
 			category,
 			activity
 		})
-		console.log(categoriseActivity)
+		// console.log(categoriseActivity)
 	}
 
 	pullUserActivities = async () => {
@@ -138,33 +140,36 @@ class Trip extends React.Component {
 		// take the individual arrays, break html into the three parts, populate each accordingly. Done.
 		let userOther = []
 		this.state.activities.forEach(activity => {
+			console.log(activity);
+			console.log(userActivities.data.likes);
 			if (
-				!userActivities.data.likes.includes(activity.title)
+				!userActivities.data.likes.includes(activity)
 				&&
-				!userActivities.data.dislikes.includes(activity.title)
+				!userActivities.data.dislikes.includes(activity)
 				&&
-				!userActivities.data.been.includes(activity.title)
+				!userActivities.data.been.includes(activity)
 			) {
-				userOther.push(activity.title)
-				console.log(activity)
+				userOther.push(activity)
+				// console.log(activity)
 			}
+			else {console.log('else')}
 		})
 		this.setState({
 			userActivities: {
-				Likes: [userActivities.data.likes],
-				Dislikes: [userActivities.data.dislikes],
-				Visited: [userActivities.data.been],
-				Uncategorised: userOther
+				Likes: userActivities.data.likes,
+				Dislikes: userActivities.data.dislikes,
+				Visited: userActivities.data.been,
+				'Not Been': userOther
 			}
 		})
 		// console.log(this.state.userActivities)
-		Object.entries(this.state.userActivities).forEach(([category, activities]) => {
-		  // console.log(key, value) // "someKey" "some value", "hello" "world", "js javascript foreach object"
-			activities.forEach(activity => {
-				console.log(activity);
-				// html here, use key as 'category'
-			})
-		})
+		// {Object.entries(this.state.userActivities).forEach(([category, activities], i) => {
+		// 	console.log(category)
+		// 	console.log(activities)
+		// 	console.log(activities[0]);
+		// })}
+
+
 
 		// now need to take the userActivities and build the html from it
 		// array of arrays? like: userActivities = [this.state.likes, dislikes ...]
@@ -176,6 +181,9 @@ class Trip extends React.Component {
 		// sidenote ... accordions in accordions?
 		// and ... if activity not in one of these lists, then 'other'
 		// to make the activities lists not duplicated - run through a set on backend
+
+		// oh I'll need to pull the rest of the detail into the object as well.. not just the names.
+		// I really should be doing this all through ID's and populates.
 
 	}
 
@@ -194,57 +202,62 @@ class Trip extends React.Component {
 						<div class="col">
 						<h5 class="mb-3">Things to do</h5>
 						<button>Create new activity</button>
-						{/* category start */}
-						<h6>Recommendations</h6>
-						<h6>Dislikes</h6>
-						<h6>Not Visited</h6>
+
 						{/* accordion start */}
 							<div class="accordion accordion-flush" id="accordionExample">
-								{this.state.activities.map((activity, i) => (
-									<div class="accordion-item">
-										<h2 class="accordion-header" id={`heading${i}`}>
-											<button
-												class={activity.title === this.state.focus ? "accordion-button" : "accordion-button collapsed"}
-												type="button"
-												data-bs-toggle="collapse"
-												data-bs-target={`#collapse${i}`}
-												aria-expanded="false"
-												aria-controls={`collapse${i}`}
-												onClick={ev => this.zoomMap(ev.target.innerHTML, activity.geometry)}
-											>
-											{activity.title}
-											</button>
-										</h2>
-										<div
-											id={`collapse${i}`}
-											className={activity.title === this.state.focus ? "accordion-collapse collapse show" : "accordion-collapse collapse collapsed"}
-											aria-labelledby={`heading{i}`}
-											data-bs-parent="#accordionExample"
-										>
-											<div class="accordion-body">
-												<div class="row">
-													<div class="col-6">
-														<p>
-															{activity.description}
-														</p>
-														<p>{activity.address}</p>
-														<button value="likes" onClick={ev => this.categoriseActivity(ev.target.value, activity.title)}>Like</button>
-														<button value="dislikes" onClick={ev => this.categoriseActivity(ev.target.value, activity.title)}>Not interested</button>
-														<button value="been" onClick={ev => this.categoriseActivity(ev.target.value, activity.title)}>Been</button>
-													</div>
-													<div class="col-6">
-														<img
-															src={activity.image}
-															class="img-fluid"
-															alt=""
-														/>
+								{Object.entries(this.state.userActivities).map(([category, activities], i) => (
+									<>
+										<h1>{category}</h1>
+										{activities.map(activity => (
+											<div class="accordion-item">
+												<h2 class="accordion-header" id={`heading${i}`}>
+													<button
+														class={activity.title === this.state.focus ? "accordion-button" : "accordion-button collapsed"}
+														type="button"
+														data-bs-toggle="collapse"
+														data-bs-target={`#collapse${i}`}
+														aria-expanded="false"
+														aria-controls={`collapse${i}`}
+														onClick={ev => this.zoomMap(ev.target.innerHTML, activity.geometry)}
+													>
+													{activity.title}
+													</button>
+												</h2>
+												<div
+													id={`collapse${i}`}
+													className={activity.title === this.state.focus ? "accordion-collapse collapse show" : "accordion-collapse collapse collapsed"}
+													aria-labelledby={`heading{i}`}
+													data-bs-parent="#accordionExample"
+												>
+													<div class="accordion-body">
+														<div class="row">
+															<div class="col-6">
+																<p>
+																	{activity.description}
+																</p>
+																<p>{activity.address}</p>
+																<button value="likes" onClick={ev => this.categoriseActivity(ev.target.value, activity)}>Like</button>
+																<button value="dislikes" onClick={ev => this.categoriseActivity(ev.target.value, activity)}>Not interested</button>
+																<button value="been" onClick={ev => this.categoriseActivity(ev.target.value, activity)}>Been</button>
+															</div>
+															<div class="col-6">
+																<img
+																	src={activity.image}
+																	class="img-fluid"
+																	alt=""
+																/>
+															</div>
+														</div>
 													</div>
 												</div>
 											</div>
-										</div>
-									</div>
+										))}
+
+
+									</>
 								))}
 							</ div>
+							{/* accordion end */}
 						</div>
 						<div class="col">
 							<Map map={this.state.map} updateFocus={this.updateFocus}/>
@@ -258,3 +271,12 @@ class Trip extends React.Component {
 
 // export
 export default Trip;
+
+// {Object.entries(this.state.userActivities).forEach(([category, activities]) => (
+// 	// console.log(key, value) // "someKey" "some value", "hello" "world", "js javascript foreach object"
+// 	activities.forEach(activity => {
+// 		return (
+// 		)
+// 	})
+// ))
+// }

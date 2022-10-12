@@ -175,9 +175,9 @@ class Location extends React.Component {
 															{activity.description}
 														</p>
 														<p>{activity.address}</p>
-														<button value="likes" onClick={ev => this.categoriseActivity(ev.target.value, activity.title)}>Like</button>
-														<button value="dislikes" onClick={ev => this.categoriseActivity(ev.target.value, activity.title)}>Not interested</button>
-														<button value="been" onClick={ev => this.categoriseActivity(ev.target.value, activity.title)}>Been</button>
+														<button value="likes" onClick={ev => this.categoriseActivity(ev.target.value, activity)}>Like</button>
+														<button value="dislikes" onClick={ev => this.categoriseActivity(ev.target.value, activity)}>Not interested</button>
+														<button value="been" onClick={ev => this.categoriseActivity(ev.target.value, activity)}>Been</button>
 													</div>
 													<div class="col-6">
 														<img
