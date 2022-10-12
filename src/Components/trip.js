@@ -31,7 +31,8 @@ class Trip extends React.Component {
 			Dislikes: [],
 			Visited: [],
 			Uncategorised: []
-		}
+		},
+		matched: false
 	}
 
 	// fetch all activities from database
@@ -131,6 +132,12 @@ class Trip extends React.Component {
 		// console.log(categoriseActivity)
 	}
 
+	matched = (value) => {
+		this.setState({
+			matched: value
+		})
+	}
+
 	pullUserActivities = async () => {
 		let userActivities = await axios.post(`${process.env.REACT_APP_SERVER_URL}/activities/users-trip`, {
 			userID: this.props.user.id,
@@ -140,19 +147,23 @@ class Trip extends React.Component {
 		// take the individual arrays, break html into the three parts, populate each accordingly. Done.
 		let userOther = []
 		this.state.activities.forEach(activity => {
-			console.log(activity);
-			console.log(userActivities.data.likes);
-			if (
-				!userActivities.data.likes.includes(activity)
-				&&
-				!userActivities.data.dislikes.includes(activity)
-				&&
-				!userActivities.data.been.includes(activity)
-			) {
-				userOther.push(activity)
-				// console.log(activity)
-			}
-			else {console.log('else')}
+			userActivities.data.likes.forEach(Useractivity => {
+				if (Useractivity.title == activity.title) {
+					this.matched(true)
+				}
+			})
+			userActivities.data.dislikes.forEach(Useractivity => {
+				if (Useractivity.title == activity.title) {
+					this.matched(true)
+				}
+			})
+			userActivities.data.been.forEach(Useractivity => {
+				if (Useractivity.title == activity.title) {
+					this.matched(true)
+				}
+			})
+		if (this.state.matched == false) {userOther.push(activity)}
+		this.matched(false)
 		})
 		this.setState({
 			userActivities: {
@@ -201,7 +212,7 @@ class Trip extends React.Component {
 			  <div class="container">
 					{/* location */}
 					<h2 class="pt-4">{this.props.location}</h2>
-					<h2 class="pt-4">This User's Name's trip</h2>
+					<h2 class="pt-4">{`${this.props.user.name}'s Trip`}</h2>
 					<button onClick={this.addLocation}>Add location to profile</button>
 					<small class="card-text">120 activities</small>
 					{/* end of location section*/}
