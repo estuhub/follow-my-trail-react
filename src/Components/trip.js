@@ -187,6 +187,13 @@ class Trip extends React.Component {
 
 	}
 
+	// globalIndex = () => {
+	// 	this.setState({
+	// 		globalIndex: globalIndex++
+	// 	})
+	// 	return this.state.globalIndex
+	// }
+
   render() {
     return (
 			<>
@@ -205,28 +212,28 @@ class Trip extends React.Component {
 
 						{/* accordion start */}
 							<div class="accordion accordion-flush" id="accordionExample">
-								{Object.entries(this.state.userActivities).map(([category, activities], i) => (
+								{Object.entries(this.state.userActivities).map(([category, activities], j) => (
 									<>
 										<h1>{category}</h1>
-										{activities.map(activity => (
+										{activities.map((activity, i) => (
 											<div class="accordion-item">
-												<h2 class="accordion-header" id={`heading${i}`}>
+												<h2 class="accordion-header" id={`heading${i+((j+1)*10)}`}>
 													<button
 														class={activity.title === this.state.focus ? "accordion-button" : "accordion-button collapsed"}
 														type="button"
 														data-bs-toggle="collapse"
-														data-bs-target={`#collapse${i}`}
+														data-bs-target={`#collapse${i+((j+1)*10)}`}
 														aria-expanded="false"
-														aria-controls={`collapse${i}`}
+														aria-controls={`collapse${i+((j+1)*10)}`}
 														onClick={ev => this.zoomMap(ev.target.innerHTML, activity.geometry)}
 													>
 													{activity.title}
 													</button>
 												</h2>
 												<div
-													id={`collapse${i}`}
+													id={`collapse${i+((j+1)*10)}`}
 													className={activity.title === this.state.focus ? "accordion-collapse collapse show" : "accordion-collapse collapse collapsed"}
-													aria-labelledby={`heading{i}`}
+													aria-labelledby={`heading${i+((j+1)*10)}`}
 													data-bs-parent="#accordionExample"
 												>
 													<div class="accordion-body">
