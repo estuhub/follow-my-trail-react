@@ -8,6 +8,8 @@ import Signup from './Components/signup'
 import Map from './Components/Partials/map'
 import Where from './Components/where'
 import Create from './Components/create'
+import Trip from './Components/trip'
+
 // import AutoComplete from './Components/Partials/autocomplete'
 
 // create classes
@@ -44,6 +46,18 @@ class App extends React.Component {
 				<Route path='/login' component={Login} />
 				<Route path='/create' component={Create} />
 				<Route path='/map' component={Map} />
+				<Route exact path='/trip'
+					render={(routerProps) => {
+						return (
+							<Trip
+								location={this.state.location}
+								user={this.state.user}
+								handleChange={this.setLocation}
+								routerProps={routerProps}
+							/>
+						)
+					}}
+				/>
 				<Route exact path='/'
        		render={(routerProps) => {
         		return (

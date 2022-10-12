@@ -7,8 +7,8 @@ import Nav from './Partials/nav'
 class Profile extends React.Component {
 
 	tripRedirect = (trip) => {
-		// console.log(this.props.history)
-		this.props.history.push("/location")
+		console.log(this.props.user)
+		this.props.history.push("/trip")
 	}
 
   render() {
