@@ -24,10 +24,12 @@ class Trip extends React.Component {
     },
 		focus: 'location'
 		,
-		userLikes: [],
-		userDislikes: [],
-		userBeen: [],
-		userOther: [],
+		userActivities: {
+			Likes: [],
+			Dislikes: [],
+			Visited: [],
+			Uncategorised: []
+		}
 	}
 
 	// fetch all activities from database
@@ -141,22 +143,36 @@ class Trip extends React.Component {
 				&&
 				!userActivities.data.dislikes.includes(activity.title)
 				&&
-				!userActivities.data.dislikes.includes(activity.title)
+				!userActivities.data.been.includes(activity.title)
 			) {
 				userOther.push(activity.title)
 				console.log(activity)
 			}
 		})
 		this.setState({
-			userLikes: [userActivities.data.likes],
-			userDislikes: [userActivities.data.dislikes],
-			userBeen: [userActivities.data.been],
-			userOther
+			userActivities: {
+				Likes: [userActivities.data.likes],
+				Dislikes: [userActivities.data.dislikes],
+				Visited: [userActivities.data.been],
+				Uncategorised: userOther
+			}
 		})
-		// console.log(this.state.userOther)
+		// console.log(this.state.userActivities)
+		Object.entries(this.state.userActivities).forEach(([category, activities]) => {
+		  // console.log(key, value) // "someKey" "some value", "hello" "world", "js javascript foreach object"
+			activities.forEach(activity => {
+				console.log(activity);
+				// html here, use key as 'category'
+			})
+		})
 
 		// now need to take the userActivities and build the html from it
-		// add it to the state?
+		// array of arrays? like: userActivities = [this.state.likes, dislikes ...]
+		// then forEach item in array, then the same as what I already have
+		// would need to use index to say 'likes', 'dislikes', 'been'
+		// not very direct method but would work
+		// this will want replacing with objects, using the keys as the names, fetching arrays from within
+
 		// sidenote ... accordions in accordions?
 		// and ... if activity not in one of these lists, then 'other'
 		// to make the activities lists not duplicated - run through a set on backend
