@@ -22,6 +22,7 @@ class Map extends React.Component {
 	setMap = async () => {
 		let mapGeometry = await axios.get(`${process.env.REACT_APP_SERVER_URL}/map/koh-phangan`)
 		mapGeometry = JSON.parse(mapGeometry.request.response)
+		console.log(mapGeometry)
 		this.setState ({
 			map: {
 				center: {

@@ -9,6 +9,7 @@ import Map from './Components/Partials/map'
 import Where from './Components/where'
 import Create from './Components/create'
 import Trip from './Components/trip'
+import Discover from './Components/discover'
 
 // import AutoComplete from './Components/Partials/autocomplete'
 
@@ -86,6 +87,18 @@ class App extends React.Component {
 							<Profile
 								user={this.state.user}
 								handleChange={this.setUser}
+							/>
+						)
+					}}
+				/>
+				<Route exact path='/discover'
+					render={(routerProps) => {
+						return (
+							<Discover
+								location={this.state.location}
+								user={this.state.user}
+								handleChange={this.setLocation}
+								routerProps={routerProps}
 							/>
 						)
 					}}
